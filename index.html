@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="el" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Silver Human Practices — Modern, Interactive (Green theme)</title>
+  <style>
+    :root {
+      /* Primary green palette */
+      --green-50: #f0fdf4;
+      --green-100: #dcfce7;
+      --green-200: #bbf7d0;
+      --green-300: #86efac;
+      --green-400: #4ade80;
+      --green-500: #22c55e;
+      --green-600: #16a34a;
+      --green-700: #15803d;
+      --green-800: #166534;
+      --green-900: #14532d;
+
+      --gray-0: #ffffff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+
+      --bg: var(--gray-0);
+      --fg: var(--gray-900);
+      --muted: var(--gray-500);
+      --card-bg: var(--gray-50);
+      --border: var(--gray-200);
+      --accent: var(--green-600);
+      --accent-contrast: #fff;
+      --soft-accent: var(--green-50);
+      --shadow: 0 8px 24px rgba(0,0,0,0.08);
+
+      --radius: 16px;
+      --transition: 220ms cubic-bezier(.215, .61, .355, 1);
+      --maxw: 1180px;
+    }
+
+    [data-theme="dark"] {
+      --bg: var(--gray-900);
+      --fg: var(--gray-50);
+      --muted: var(--gray-400);
+      --card-bg: #111b14;
+      --border: #1f2b22;
+      --accent: var(--green-400);
+      --accent-contrast: #0f172a;
+      --soft-accent: rgba(34,197,94,0.08);
+      --shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+      color: var(--fg);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* --- Top Nav --- */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition);
+    }
+    [data-theme="dark"] header.site-header { background: rgba(17,24,39,0.6); }
+
+    .site-header .inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+    }
+
+    .brand {
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .brand svg {
+      height: 28px;
+      width: 28px;
+    }
+
+
+
+    .theme-toggle {
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--fg);
+      padding: .35rem .6rem;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .9rem;
+    }
+
+    /* --- Hero --- */
+    .hero {
+      background: linear-gradient(135deg, var(--soft-accent) 0%, transparent 100%);
+      padding: 4rem 1rem 3rem;
+    }
+    .hero .inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      max-width: 820px;
+      margin: 0.5rem auto 1.5rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+    .hero .tagline {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--accent-contrast);
+      padding: .25rem .6rem;
+      border-radius: 6px;
+      font-size: .9rem;
+    }
+
+    /* --- TOC (sticky side) --- */
+    .layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+    aside.toc {
+      position: sticky;
+      top: 96px;
+      height: max-content;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+    }
+    aside.toc h4 {
+      margin-top: 0;
+      margin-bottom: .5rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: 1rem;
+    }
+    aside.toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+    aside.toc a {
+      text-decoration: none;
+      color: var(--fg);
+      opacity: .75;
+      transition: opacity var(--transition), color var(--transition);
+      border-left: 2px solid transparent;
+      padding-left: .5rem;
+    }
+    aside.toc a:hover { opacity: 1; color: var(--accent); }
+    aside.toc a.active {
+      opacity: 1;
+      color: var(--accent);
+      border-left-color: var(--accent);
+    }
+
+    /* --- Sections --- */
+    section.section {
+      margin-bottom: 3.5rem;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem 1.25rem 1.75rem;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    section.section.in-view {
+      opacity: 1;
+      transform: none;
+    }
+    section.section h2 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    section .summary {
+      background: var(--soft-accent);
+      border-left: 4px solid var(--accent);
+      padding: .75rem 1rem;
+      border-radius: 6px;
+      margin: 1rem 0 1.2rem;
+      color: var(--fg);
+    }
+
+    /* --- Cards (Overview Grid) --- */
+    .overview {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 2rem 1rem 0;
+    }
+    .overview h3 { margin-bottom: 1rem; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem 1.1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(0,0,0,.12);
+    }
+    .card h4 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin: 0 0 .5rem 0;
+    }
+    .card p { color: var(--muted); margin-bottom: 1rem; }
+    .card a.button {
+      align-self: flex-start;
+      text-decoration: none;
+      background: var(--accent);
+      color: var(--accent-contrast);
+      border-radius: 999px;
+      padding: .45rem .9rem;
+      font-size: .9rem;
+      transition: filter var(--transition);
+    }
+    .card a.button:hover { filter: brightness(.95); }
+
+    /* --- Accordions inside each section --- */
+    .accordion {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 1rem 0;
+      background: transparent;
+    }
+    .accordion-item + .accordion-item {
+      border-top: 1px solid var(--border);
+    }
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: .85rem 1rem;
+      cursor: pointer;
+      background: var(--soft-accent);
+      color: var(--fg);
+      border: none;
+      font-size: 1rem;
+    }
+    .accordion-header span.icon { transition: transform var(--transition); }
+    .accordion-header[aria-expanded="true"] span.icon {
+      transform: rotate(180deg);
+    }
+    .accordion-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 300ms ease;
+      background: transparent;
+    }
+    .accordion-panel .panel-inner {
+      padding: 0 1rem 1rem;
+    }
+
+    /* --- Back to top --- */
+    #backToTop {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      padding: .6rem .8rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--accent-contrast);
+      box-shadow: var(--shadow);
+      border: none;
+      cursor: pointer;
+      display: none;
+      z-index: 1001;
+    }
+    #backToTop.show { display: inline-flex; }
+
+    /* --- Utilities --- */
+    .muted { color: var(--muted); }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      padding: .15rem .45rem;
+      border-radius: 999px;
+      font-size: .8rem;
+      background: var(--soft-accent);
+      color: var(--accent);
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      aside.toc {
+        position: static;
+        top: auto;
+        order: -1;
+        margin-bottom: 1rem;
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    nav {
+      position: sticky;
+      top: 0;
+      color: rgb(0, 0, 0);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      z-index: 1000;
+    }
+
+  nav a {
+      color: var(--fg);
+      text-decoration: none;
+      font-weight: 500;
+      opacity: .8;
+      transition: opacity var(--transition), color var(--transition);
+    }
+    nav a:hover,
+    nav a.active { color: var(--accent); opacity: 1; }
+
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+   
+
+ .dropdown {
+  position: absolute;
+  background-color: var(--card-bg); /* dynamic based on theme */
+  display: none;
+  flex-direction: column;
+  top: 100%;
+  left: 0;
+  min-width: 100%;
+  border-radius: 0 0 5px 5px;
+  box-shadow: var(--shadow);
+  z-index: 2000;
+}
+
+.dropdown a {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+  color: var(--fg); /* use dynamic text color */
+  background-color: transparent;
+}
+
+
+    nav ul li:hover > .dropdown {
+      display: flex;
+    }
+
+
+    /* Hamburger button */
+    #hamburger {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      user-select: none;
+      color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+      }
+
+      #hamburger {
+        display: block;
+      }
+
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        display: none; /* αρχικά κρυφό */
+        background-color: #006400;
+        margin-top: 0.5rem;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      nav ul li {
+        width: 100%;
+      }
+
+    nav ul li.open > .dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+
+      /* Dropdown ως collapsible σε κινητά */
+      .dropdown {
+        position: static;
+        box-shadow: none;
+        border-radius: 0;
+        display: none;
+        padding-left: 1rem;
+        background-color: #2E8B57;
+      }
+
+      nav ul li.open > .dropdown {
+        display: flex;
+        flex-direction: column;
+      }
+
+      nav a {
+        padding: 0.7rem 1rem;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="inner">
+      <div class="brand" aria-label="Silver Human Practices">
+        <!-- Simple Leaf Icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V2S12 2 6 8c0 6 6 14 6 14z"/><path d="M12 22s-6-8-6-14"/></svg>
+        <span>CHITINATOR et al</span>
+      </div>
+       <nav>
+   
+    <div id="hamburger">&#9776;</div>
+    <ul>
+      <li><a href="#home" class="active">Home</a></li>
+      <li>
+        <a href="#team">Team</a>
+        <div class="dropdown">
+          <a href="#members">Members</a>
+          <a href="#helpers">Helpers</a>
+          <a href="#attribution">Attribution</a>
+        </div>
+      </li>
+      <li>
+        <a href="#project">Project</a>
+        <div class="dropdown">
+          <a href="#description">Description</a>
+          <a href="#engineering">Engineering</a>
+          <a href="#implementation">Implementation</a>
+          <a href="#contribution">Contribution</a>
+          <a href="#safety">Safety</a>
+        </div>
+      </li>
+      <li>
+        <a href="#wetlab">Wet Lab</a>
+        <div class="dropdown">
+          <a href="#design">Design</a>
+          <a href="#experiment">Experiment</a>
+          <a href="#results">Results</a>
+          <a href="#labbook">Lab Book</a>
+          <a href="#composite">New Composite Part</a>
+        </div>
+      </li>
+      <li>
+        <a href="#drylab">Dry Lab</a>
+        <div class="dropdown">
+          <a href="#model">Model</a>
+        </div>
+      </li>
+      <li>
+        <a href="#human">Human</a>
+        <div class="dropdown">
+          <a href="#overview">Overview</a>
+          <a href="tryhyman.html">Silver Human Practices</a>
+          <a href="#integrated">Integrated Human Practices</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+      <button id="themeToggle" class="theme-toggle" aria-label="theme change">
+        <span class="icon">🌞</span> <span class="label">Light</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="inner">
+      <span class="tagline">Modern, innovative & green ✳︎</span>
+      <h1>Silver Human Practices</h1>
+      <p>In the Silver Human Practice Page, we describe how we 've established that our work is responsible and beneficial for the world.</p>
+      <div class="muted" style="margin-top: .75rem; font-size:.9rem;"></div>
+    </div>
+  </section>
+
+  <!-- Quick Overview Cards (short summaries & jump links) -->
+  <section id="overview" class="overview">
+    <h3>Quick Overview</h3>
+    <div class="card-grid">
+      <article class="card">
+        <h4>🧭 The values guiding our projects design</h4>
+        <p>Our core beliefs shaping every decision.</p>
+        <a href="#values" class="button">Take Me There</a>
+      </article>
+      <article class="card">
+        <h4>🧠 Exploring Context and Brainstorming</h4>
+        <p>Diving into the why and how before we create.</p>
+        <a href="#brainstorming" class="button">Take Me There</a>
+      </article>
+      <article class="card">
+        <h4>📝 Documenting Our Work</h4>
+        <p>Tracking our journey from concept to creation.</p>
+        <a href="#documenting" class="button">Take Me There</a>
+      </article>
+      <article class="card">
+        <h4>🌐 The Resources and Communities we reached out to during our Project’s Development</h4>
+        <p>Who helped us grow and how we connected.</p>
+        <a href="#reachingout" class="button">Take Me There</a>
+      </article>
+      <article class="card">
+        <h4>📈 The Evidence Supporting our Project's Positive Influence on the World</h4>
+        <p>Proof that we're making a real difference.</p>
+        <a href="#evidence" class="button">Take Me There</a>
+      </article>
+      <article class="card">
+        <h4>🚀 The Impact of Our Project</h4>
+        <p>The change we created and what it means.</p>
+        <a href="#impact" class="button">Take Me There</a>
+      </article>
+    </div>
+  </section>
+
+  <div class="layout">
+    <!-- Sticky in-page TOC -->
+    <aside class="toc" aria-label="Πίνακας Περιεχομένων">
+      <h4>☰ Περιεχόμενα</h4>
+      <ul id="tocList">
+        <li><a href="#values" class="active">The Values Guiding our Projects Design</a></li>
+        <li><a href="#brainstorming">Exploring Context and Brainstorming</a></li>
+        <li><a href="#documenting">Documenting Our Work</a></li>
+        <li><a href="#reachingout">The Resources and Communities we reached out to during our Project’s Development</a></li>
+        <li><a href="#evidence">The Evidence Supporting our Project's Positive Influence on the World</a></li>
+        <li><a href="#impact">The Impact of Our Project</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <!-- SECTION: Stakeholders -->
+      <section id="values" class="section" aria-labelledby="values-title">
+        <h2 id="values-title">🧭 The Values Guiding our Projects Design</h2>
+        <div class="summary">
+          <strong>Outline: </strong> Our core beliefs shaping every decision.
+        </div>
+        <div class="accordion" role="region" aria-label="Stakeholder Accordions">
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="st-ak-1" id="st-btn-1">
+              <span>Vision Beyond the Lab: Reimagining Waste and Agriculture</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="st-ak-1" role="region" aria-labelledby="st-btn-1" class="accordion-panel">
+              <div class="panel-inner">
+                <p>From its earliest conception, Chitinator et al. was never meant to be just a synthetic biology experiment. It was envisioned as a transformative platform, where biotechnology, sustainability, and societal benefit converge to tackle two of today’s most pressing challenges: the growing accumulation of crustacean-derived chitin waste and the unrelenting overreliance of agriculture on chemical fertilizers. These problems are not abstract , they manifest as mountains of discarded biomass, degraded soils stripped of microbial life, rising costs that burden farming communities, and a food system increasingly at odds with environmental balance. </p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="st-ak-2" id="st-btn-2">
+              <span>Grounded Innovation: Circular Bioeconomy and Local Roots</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="st-ak-2" role="region" aria-labelledby="st-btn-2" class="accordion-panel">
+              <div class="panel-inner">
+                 <p>Our guiding vision is anchored in the belief that biology can do more than simply solve technical puzzles; it can reshape systems. At the heart of our approach lies the principle of the Circular Bioeconomy: nothing is waste if it can become a resource. Chitin, often treated as refuse, is reimagined as a cornerstone for regenerative agriculture and bio-based innovation. Rather than building an energy-hungry industrial process, we embraced a biology driven enzymatic cascade, designed to function without additional energy consumption, harnessing the natural capacities of microbial systems.</p> 
+
+<p>The foundation of our work began locally. The E. coli strain we used for cloning and validation was sourced directly from the Laboratory of Molecular Physiology at Democritus University of Thrace, grounding our project in our own academic environment. For the tools to bring our design to life including the insert, plasmid, and primers ,we worked with companies in partnership with iGEM , ensuring quality and reproducibility while streamlining development.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="st-ak-3" id="st-btn-3">
+              <span>From Blueprint to Bioreactor: A Scalable, Sustainable Solution</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="st-ak-3" role="region" aria-labelledby="st-btn-3" class="accordion-panel">
+              <div class="panel-inner">
+                <p>From these foundations, Chitinator et al. evolved into a dual-phase system. In the design and testing phase, E. coli served as our engineering platform to validate the expression and functionality of our chitinases. For deployment, we turned to Bacillus subtilis 168, a GRAS-certified chassis whose natural glucosaminidase activity synergizes with our engineered endo- and exochitinases to achieve complete chitin degradation. Within a bioreactor setting, this system transforms a problematic waste stream into chito-oligosaccharides, monomers, and nutrient-rich fractions. These outputs are not end-points, but enablers:
+<ul>
+    <li>Natural biofertilizer and compost activators, reducing chemical inputs and revitalizing soils.</li>
+    <li>Nutrient feedstocks for engineered microbes, driving additional innovations, from bioremediation to microplastic degradation.</li>
+   <li>Every choice we made was shaped by our core values: sustainability that transcends the lab, biosafety and responsibility to protect ecosystems, collaboration to amplify impact, and accessibility for real-world agriculture. These principles ensured that Chitinator et al. would not remain a confined proof-of-concept, but emerge as a scalable, field-ready solution , one that converts waste into value, reduces the environmental footprint of farming, and paves the way for a new era of bio-based innovation.</li> 
+</ul>
+These collaborations reflect our belief that scientific innovation thrives at the intersection of academic rigor, industry standards, and sustainability. </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: Ethics -->
+      <section id="brainstorming" class="section" aria-labelledby="brainstorming-title">
+        <h2 id="brainstorming-title">🧠 Exploring Context and Brainstorming</h2>
+        <div class="summary">
+          <strong>Outline: </strong>Diving into the why and how before we create.
+        </div>
+        <div class="accordion" role="region" aria-label="Brainstorming Accordions">
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="eth-ak-1" id="eth-btn-1">
+              <span>Shared Vision and Project Inspiration</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="eth-ak-1" role="region" aria-labelledby="eth-btn-1" class="accordion-panel">
+               <div class="panel-inner">
+                <p>From the earliest stages of ideation, our team shared a common vision: to create a project that would not only demonstrate the power of synthetic biology but also deliver tangible environmental and agricultural benefits. In our first brainstorming sessions, we aligned around two guiding priorities. First, our work needed to address a pressing environmental challenge, turning a problematic resource into something valuable. Second, the outcome of our project should contribute directly to sustainable agriculture, reducing dependence on chemical inputs through the development of biofertilizers or bio-based soil enhancers.</p>
+
+<p>The initial spark came from our team leader, who brought to the table an idea that would eventually become Chitinator et al.. Drawing inspiration from her background and research, she proposed building the project around chitin, a biopolymer regarded as one of the most abundant and versatile natural materials on Earth. While rich in potential, chitin is frequently discarded, especially in seafood-processing industries.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="eth-ak-2" id="eth-btn-2">
+              <span>The Problem: Waste, Pollution, and Global Challenges</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="eth-ak-2" role="region" aria-labelledby="eth-btn-2" class="accordion-panel">
+              <div class="panel-inner">
+                <p>In Greece and other coastal nations, tons of shrimp and crab shells are thrown away every year, where they not only waste their latent value but often contribute to environmental pollution in landfills and coastal areas. This paradox, the coexistence of abundance and waste, ignited the vision to transform chitin into a resource, not refuse.</p>
+
+<p>As the team explored the broader context, we discovered that this issue extends far beyond Greece: worldwide, chitin-rich waste streams are neglected while modern farming relies heavily on chemical fertilizers that degrade soil biodiversity and burden farmers with rising costs.
+</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="eth-ak-3" id="eth-btn-3">
+              <span>Commitment to Sustainable Solutions and Circular Bioeconomy</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="eth-ak-3" role="region" aria-labelledby="eth-btn-3" class="accordion-panel">
+              <div class="panel-inner">
+                <p>These realizations solidified our path. Guided by our leader’s vision, we committed to designing a synthetic biology platform that could upcycle chitin waste into valuable products — biofertilizer enhancers and nutrient feedstocks — that would not only reduce chemical inputs but also advance the principles of the Circular Bioeconomy, turning discarded biomass into tools for a more sustainable future.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: Engagement -->
+      <section id="documenting" class="section" aria-labelledby="documenting-title">
+        <h2 id="documenting-title">📝 Documenting Our Work</h2>
+        <div class="summary">
+          <strong>Outline: </strong>Tracking our journey from concept to creation.
+        </div>
+        <div class="accordion" role="region" aria-label="Documenting Accordions">
+         <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="eng-ak-1" id="eng-btn-1">
+              <span>Centralized Digital System for Human Practices</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="eng-ak-1" role="region" aria-labelledby="eng-btn-1" class="accordion-panel">
+              <div class="panel-inner">
+                <p>To ensure that our Human Practices efforts were thoroughly organized and accessible to the entire team, we established a centralized digital system from the start. Using Google Workspace tools (Docs, Sheets, and Drive) alongside a shared Dropbox folder, we maintained a structured archive where every team member could access stakeholder notes, literature reviews, meeting minutes, and project milestones in real time. This system kept our work transparent and streamlined across the Wet Lab, Dry Lab, and Human Practices branches.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="eng-ak-2" id="eng-btn-2">
+              <span>Weekly Meetings and Expert Guidance</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="eng-ak-2" role="region" aria-labelledby="eng-btn-2" class="accordion-panel">
+              <div class="panel-inner">
+                <p>Our workflow was anchored by weekly meetings, not only among our core team but also with our Principal Investigators, Dr. Pappa (primary) and Dr. Galanis (secondary), our instructor, and our advisors from the previous iGEM Thrace team. These sessions provided us with scientific guidance, mentorship, and external perspectives. Each meeting’s discussions, decisions, and action points were carefully documented, ensuring that every piece of feedback, whether from experts, mentors, or stakeholders, was captured and translated into concrete adjustments to our project design and strategy.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="eng-ak-3" id="eng-btn-3">
+              <span>Dynamic Framework for Collaboration and Growth</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="eng-ak-3" role="region" aria-labelledby="eng-btn-3" class="accordion-panel">
+              <div class="panel-inner">
+                <p>This structured approach became more than just a record, it evolved into a dynamic framework that allowed Chitinator et al. to adapt and grow systematically, integrating the voices of everyone who contributed to our journey. We believe this model of transparency and collaboration is not only central to our success, but also a blueprint that other iGEM teams can adopt: a reminder that rigorous documentation and open communication don’t just organize a project, they empower it to make a lasting impact.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: Policy -->
+      <section id="reachingout" class="section" aria-labelledby="reachingout-title">
+        <h2 id="reachingout-title">🌐 The Resources and Communities we reached out to during our Project’s Development</h2>
+        <div class="summary">
+          <strong>Outline: </strong>Who helped us grow and how we connected.
+        </div>
+        <div class="accordion" role="region" aria-label="Documenting Accordions">
+         <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="pol-ak-1" id="pol-btn-1">
+              <span>Collaborative Scientific and Technical Development</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="pol-ak-1" role="region" aria-labelledby="pol-btn-1" class="accordion-panel">
+              <div class="panel-inner">
+                <p>From the very beginning of Chitinator et al., we understood that creating a sustainable solution for chitin-rich waste required more than a genetic construct; it demanded insights from every community it could impact. Guided closely by our Principal Investigators, who were involved in every step and even joined us in key stakeholder meetings, we connected with scientists, industry leaders, and local authorities to ensure our project could truly make a difference.</p>
+
+<p>Our first step was consulting experts in plasmid engineering, gene expression, and microbial biotechnology, who helped us refine our genetic circuits for E. coli and Bacillus subtilis. Alongside our PIs, they ensured that our fusion enzyme—combining endochitinase and exochitinase—would remain stable and active not just in the lab, but under real fermentation and soil conditions.</p>
+
+<p>To scale our design beyond the bench, we worked with professors in bioprocess engineering and scale-up, who guided us on how to transition our system into bioreactors for sustainable, cost-effective production. These discussions helped us prepare for industrial implementation while minimizing environmental impact.</p>
+
+<p>We also sought expertise from soil scientists, ecologists, and professors specializing in soil protection, who advised us on how the chitin degradation products (carbon, nitrogen, and phosphorus) could be used to enrich soil ecosystems without disrupting native microbiota and organisms—especially arthropods.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="pol-ak-2" id="pol-btn-2">
+              <span>Agricultural, Economic, and Local-Global Perspectives</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="pol-ak-2" role="region" aria-labelledby="pol-btn-2" class="accordion-panel">
+              <div class="panel-inner">
+                <p>Understanding the agricultural and economic context was crucial. We collaborated with agronomists, local farmers, and owners of fertilizer companies, including some of our own sponsors, who provided vital insights into the competitiveness of our product compared to chemical fertilizers. Their feedback helped us shape our sustainable product so it could meet both environmental and economic needs in real markets.</p>
+
+<p>Our project also took a local and global perspective. We met with the Mayor of Alexandroupolis, our coastal hometown, where numerous seafood restaurants generate large volumes of shrimp and crab shell waste. These conversations helped us understand how Chitinator et al. could not only address a local environmental challenge but also scale to similar waste streams across Greece and internationally, broadening the impact of our solution.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="pol-ak-3" id="pol-btn-3">
+              <span>Interdisciplinary Validation and Community Engagement</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="pol-ak-3" role="region" aria-labelledby="pol-btn-3" class="accordion-panel">
+              <div class="panel-inner">
+                <p>To validate our scientific foundation, biochemists and enzymologists supported us in optimizing enzyme synergy, while structural and computational biology professors helped us model our fusion enzyme’s folding, linker dynamics, and catalytic function.</p>
+
+<p>This broad, interdisciplinary collaboration—strengthened by our PIs’ continuous involvement and input from experts across agriculture, bioprocessing, biotechnology, and policy—allowed Chitinator et al. to evolve into a sustainable, scientifically sound product with applications that benefit both the environment and society. </p>
+
+<p>Building a truly impactful solution goes beyond the science; it requires listening, learning, and working hand-in-hand with the people who will be affected by it. For Chitinator et al., every conversation with farmers, scientists, policy-makers, and local communities helped shape our project into something more than a technical innovation: a step toward a more sustainable, circular future for agriculture and waste management. </p>
+
+<p>We embraced diverse voices, from local restaurant owners to fertilizer companies, from students to municipal leaders, ensuring that every perspective contributed to a product that is not only effective but responsible, accessible, and globally relevant.</p>
+
+<p>By sharing our journey and remaining open to collaboration, we aim to inspire others to see waste as a resource and synthetic biology as a bridge between science and society.
+
+<p><a href="integrated-human-practices.html" style="color: rgb(114, 114, 255); font-style: italic;">Find out more in the Integrated Human Practices Page.</a>.</p>
+<p><a href="communication-education.html" style="color: rgb(114, 114, 255); font-style: italic;">Find out more in the Education and Communication Page.</a> </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+<!-- SECTION: Sustainability -->
+<section id="evidence" class="section" aria-labelledby="evidence-title">
+  <h2 id="evidence-title">📈 The Evidence Supporting our Project's Positive Influence on the World</h2>
+  <div class="summary">
+    <strong>Outline: </strong>Proof that we're making a real difference.
+  </div>
+  <div class="accordion" role="region" aria-label="Sustainability Accordions">
+
+    <!-- Accordion 1 -->
+    <div class="accordion-item">
+      <button class="accordion-header" aria-expanded="false" aria-controls="sus-ak-1" id="sus-btn-1">
+        <span>From Concept to Environmental Impact</span>
+        <span class="icon">▼</span>
+      </button>
+      <div id="sus-ak-1" role="region" aria-labelledby="sus-btn-1" class="accordion-panel">
+        <div class="panel-inner">
+          <p>From the beginning, we wanted Chitinator et al. to be more than a synthetic biology concept. Our goal was to create a solution that could address a real environmental challenge, support sustainable agriculture, and engage both local and international communities. Through consultations, research, and stakeholder engagement, we gathered strong evidence that our project can have tangible, positive effects.</p>
+
+<p>In our hometown of Alexandroupolis, a coastal city with a thriving seafood sector, numerous restaurants and processing facilities generate significant amounts of shrimp and crab shell waste every month. Currently, much of this waste is discarded in landfills, creating both environmental and logistical challenges. By converting chitin-rich waste into a sustainable product, our system could significantly reduce landfill loads and transform waste into a resource rich in carbon, nitrogen, and phosphorus. Discussions with local authorities, including the Mayor of Alexandroupolis, highlighted how our solution could address a local problem while scaling to similar seafood waste streams across Greece and abroad.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accordion 2 -->
+    <div class="accordion-item">
+      <button class="accordion-header" aria-expanded="false" aria-controls="sus-ak-2" id="sus-btn-2">
+        <span>Feedback from Agriculture, Industry, and the Scientific Community</span>
+        <span class="icon">▼</span>
+      </button>
+      <div id="sus-ak-2" role="region" aria-labelledby="sus-btn-2" class="accordion-panel">
+        <div class="panel-inner">
+          <p>Through meetings with farmers, agronomists, and fertilizer companies (several of which became project sponsors), we received feedback confirming that, while Chitinator et al. cannot fully replace chemical fertilizers—given their entrenched global use—it can fill a major gap in the market by offering a sustainable, environmentally friendly alternative. Stakeholders emphasized that this approach could complement existing practices, especially for farmers seeking to reduce chemical input or meet sustainability standards. Several also noted that with further development, Chitinator et al. could grow into a significant player in the agricultural sector worldwide.</p>
+
+<p>Beyond industry, we shared our concept at multiple conferences and academic events, presenting our preliminary ideas and gathering constructive feedback from students, researchers, and professors. Many attendees expressed excitement about the environmental benefits of repurposing chitin waste, while also raising insightful questions about regulatory pathways and scalability discussions that helped us refine our approach and ensure our design remained grounded in reality.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accordion 3 -->
+    <div class="accordion-item">
+      <button class="accordion-header" aria-expanded="false" aria-controls="sus-ak-3" id="sus-btn-3">
+        <span>Scientific and Technical Validation</span>
+        <span class="icon">▼</span>
+      </button>
+      <div id="sus-ak-3" role="region" aria-labelledby="sus-btn-3" class="accordion-panel">
+        <div class="panel-inner">
+          <p>With the guidance of our Principal Investigators, who were present in nearly every stakeholder discussion, we consulted soil scientists, microbial biotechnologists, and ecologists to confirm that our system’s degradation products would enrich soils without disrupting native microbial ecosystems. Additionally, professors in bioprocess engineering provided insight on how our design could be scaled into bioreactors, making large-scale production both feasible and sustainable.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accordion 4 -->
+    <div class="accordion-item">
+      <button class="accordion-header" aria-expanded="false" aria-controls="sus-ak-4" id="sus-btn-4">
+        <span>Community and Outreach Impact</span>
+        <span class="icon">▼</span>
+      </button>
+      <div id="sus-ak-4" role="region" aria-labelledby="sus-btn-4" class="accordion-panel">
+        <div class="panel-inner">
+          <p>Our outreach initiatives, including surveys, workshops, and online engagement, showed strong public interest in biological approaches to waste management. Community participants expressed support for a system that could turn local waste into something beneficial for agriculture, especially when paired with educational efforts about biosafety and sustainability.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accordion 5 -->
+    <div class="accordion-item">
+      <button class="accordion-header" aria-expanded="false" aria-controls="sus-ak-5" id="sus-btn-5">
+        <span>Support and Endorsement</span>
+        <span class="icon">▼</span>
+      </button>
+      <div id="sus-ak-5" role="region" aria-labelledby="sus-btn-5" class="accordion-panel">
+        <div class="panel-inner">
+          <p>The willingness of fertilizer companies to not only advise us but also sponsor our work reflects confidence in our concept’s potential. Their input helped us understand the competitive fertilizer market, refine our economic model, and position Chitinator et al. as a realistic, scalable solution.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accordion 6 -->
+    <div class="accordion-item">
+      <button class="accordion-header" aria-expanded="false" aria-controls="sus-ak-6" id="sus-btn-6">
+        <span>Looking Ahead</span>
+        <span class="icon">▼</span>
+      </button>
+      <div id="sus-ak-6" role="region" aria-labelledby="sus-btn-6" class="accordion-panel">
+        <div class="panel-inner">
+          <p>While our sustainable product is not a full replacement for chemical fertilizers today, it has the potential to become a transformative tool for sustainable farming in the future. By addressing a growing environmental challenge and aligning with the agricultural market’s shift toward greener practices, Chitinator et al. lays the foundation for a solution that can scale far beyond our initial scope, making a lasting impact on both agriculture and the environment.</p>
+        </div>
+      </div>
+    </div>
+
+ 
+</section>
+
+
+      <!-- SECTION: Implementation & Risk -->
+      <section id="impact" class="section" aria-labelledby="impact-title">
+        <h2 id="impact-title">🚀 The Impact of Our Project</h2>
+        <div class="summary">
+          <strong>Outline: </strong>The change we created and what it means.
+        </div>
+        <div class="accordion" role="region" aria-label="Implementation Accordions">
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="imp-ak-1" id="imp-btn-1">
+              <span> A Sustainable Solution Rooted in Real Needs</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="imp-ak-1" role="region" aria-labelledby="imp-btn-1" class="accordion-panel">
+              <div class="panel-inner">
+                <p>Every year, in coastal cities like Alexandroupolis, countless tons of shrimp and crab shells are discarded as waste. What is seen as useless debris by restaurants and seafood processors ends up in landfills, where it creates environmental strain and contributes nothing back to the economy. Meanwhile, farmers across Greece and beyond face the dual challenge of rising fertilizer costs and growing pressure to adopt more sustainable practices.</p>
+
+<p>Chitinator et al. was born at the intersection of these two needs. By combining synthetic biology, agricultural insight, and community engagement, we are developing a sustainable product that transforms chitin-rich waste into a resource that can enrich soil, support crop health, and reduce dependence on chemical fertilizers.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="imp-ak-2" id="imp-btn-2">
+              <span>Bridging the Gap Between Innovation and Industry
+</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="imp-ak-2" role="region" aria-labelledby="imp-btn-2" class="accordion-panel">
+              <div class="panel-inner">
+                <p>We know that chemical fertilizers are deeply embedded in global agriculture and cannot be replaced overnight. But by offering a credible, eco-friendly alternative, Chitinator et al. fills a crucial gap in the market, providing farmers and fertilizer companies with a tool to reduce chemical inputs, meet sustainability certifications, and appeal to a consumer base that increasingly demands greener agricultural practices.</p>
+
+<p>Our impact extends far beyond the lab bench. Through our conversations with fertilizer companies (including several who chose to sponsor our project), farmers, soil scientists, and even the Mayor of Alexandroupolis, we have built a network of support that not only validates our approach but also signals a real demand for solutions like ours. These discussions opened doors for scaling our system into industrial bioreactors, ensuring that our sustainable product can one day be produced on a scale large enough to meet market demand.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="imp-ak-3" id="imp-btn-3">
+              <span>A Mindset Shift Toward Circular Bioeconomy
+</span>
+              <span class="icon">▼</span>
+            </button>
+            <div id="imp-ak-3" role="region" aria-labelledby="imp-btn-3" class="accordion-panel">
+              <div class="panel-inner">
+                <p>Perhaps most importantly, Chitinator et al. is more than a technical solution—it represents a shift in mindset. By turning waste into a resource, it demonstrates how synthetic biology can act as a bridge between science and society, offering innovation that serves people, the planet, and future generations.</p>
+
+<p>While our work is still at the research stage, the foundation we’ve built—with expert guidance, community feedback, and industry interest—positions our project to grow far beyond our initial vision. Chitinator et al. is not just about solving one problem; it’s about showing how environmental challenges can be transformed into opportunities, paving the way for a greener, more resilient future for agriculture worldwide.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer style="margin-top: 4rem; text-align:center; color: var(--muted); font-size:.9rem;">
+        <p>Εδώ θα βάλω Footer μόλις καταλάβω τι σκατά θέλουν</p>
+      </footer>
+    </main>
+  </div>
+
+  <button id="backToTop" aria-label="Back to top">↑</button>
+
+  <script>
+    // --- Theme toggle (light/dark)
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('.icon');
+    const themeLabel = themeToggle.querySelector('.label');
+    const root = document.documentElement;
+
+    function setTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      if (theme === 'dark') {
+        themeIcon.textContent = '🌙';
+        themeLabel.textContent = 'Dark';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeIcon.textContent = '🌞';
+        themeLabel.textContent = 'Light';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+    // Persisted theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) setTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      setTheme(current === 'light' ? 'dark' : 'light');
+    });
+
+   
+
+    // --- Scrollspy for top nav & side TOC
+    const sections = document.querySelectorAll('main section.section');
+    const topNavLinks = document.querySelectorAll('.top-nav a');
+    const tocLinks = document.querySelectorAll('aside.toc a');
+    const heroNavLink = document.querySelector('.top-nav a[href="#overview"]');
+
+    const activateLink = (id) => {
+      topNavLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+      tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+      // Keep Overview active if we're above first section
+      if (!id && heroNavLink) {
+        topNavLinks.forEach(a => a.classList.remove('active'));
+        heroNavLink.classList.add('active');
+      }
+    }
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.getAttribute('id');
+        if (entry.isIntersecting) {
+          activateLink(id);
+        }
+      });
+    }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(section => obs.observe(section));
+
+    // Smooth scroll is handled by CSS, but prevent losing focus highlight
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const targetId = link.getAttribute('href').substring(1);
+        const target = document.getElementById(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+          history.pushState(null, '', `#${targetId}`);
+        }
+      });
+    });
+
+    // --- Accordions
+    const accordions = document.querySelectorAll('.accordion-header');
+    accordions.forEach(header => {
+      header.addEventListener('click', () => {
+        const expanded = header.getAttribute('aria-expanded') === 'true';
+        const panel = document.getElementById(header.getAttribute('aria-controls'));
+        header.setAttribute('aria-expanded', String(!expanded));
+        if (!expanded) {
+          // open
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+        } else {
+          // close
+          panel.style.maxHeight = 0;
+        }
+      });
+    });
+
+    // Recalculate maxHeight on resize (for open panels)
+    window.addEventListener('resize', () => {
+      document.querySelectorAll('.accordion-header[aria-expanded="true"]').forEach(header => {
+        const panel = document.getElementById(header.getAttribute('aria-controls'));
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      });
+    });
+
+    // --- Reveal on scroll
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section.section').forEach(el => revealObs.observe(el));
+
+ 
+
+
+
+
+
+
+  // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navUl = document.querySelector('nav ul');
+
+    hamburger.addEventListener('click', () => {
+      navUl.classList.toggle('show');
+    });
+
+    // Dropdown toggle σε κινητά (κλικ για να ανοίξει το dropdown)
+    const navItems = document.querySelectorAll('nav ul > li');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        if(window.innerWidth <= 768) {
+          // Αποτρέπουμε το default scroll ή ακολουθηση href αν υπάρχει dropdown
+          const dropdown = item.querySelector('.dropdown');
+          if (dropdown) {
+            e.preventDefault();
+            item.classList.toggle('open');
+          }
+        }
+      });
+    });
+
+    // Προαιρετικά: Να κλείνει το dropdown αν κάνεις κλικ αλλού (προαιρετικό)
+    document.addEventListener('click', (e) => {
+      if(window.innerWidth <= 768) {
+        const isClickInsideNav = e.target.closest('nav');
+        if (!isClickInsideNav) {
+          navItems.forEach(item => item.classList.remove('open'));
+          navUl.classList.remove('show');
+        }
+      }
+    });
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.querySelector('nav ul');
+
+    hamburger.addEventListener('click', () => {
+      menu.classList.toggle('show');
+    });
+
+    const listItems = document.querySelectorAll('nav ul li');
+    listItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        // Αν έχει dropdown
+        if (item.querySelector('.dropdown')) {
+          e.preventDefault();
+          item.classList.toggle('open');
+        }
+      });
+    });
+  });
+
+
+// Hamburger toggle
+  document.getElementById("hamburger").addEventListener("click", function () {
+    document.querySelector("nav ul").classList.toggle("show");
+  });
+
+  // Dropdown toggle on mobile
+  const navLinks = document.querySelectorAll("nav > ul > li > a");
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", function (e) {
+      const parentLi = this.parentElement;
+      const dropdown = parentLi.querySelector(".dropdown");
+
+      // Αν υπάρχει dropdown και είμαστε σε κινητό
+      if (dropdown && window.innerWidth <= 768) {
+        e.preventDefault(); // αποτρέπουμε το default scroll σε anchor
+
+        // Κλείνουμε τα υπόλοιπα dropdown
+        document.querySelectorAll("nav ul li.open").forEach(li => {
+          if (li !== parentLi) li.classList.remove("open");
+        });
+
+        // Εναλλαγή open class στο επιλεγμένο
+        parentLi.classList.toggle("open");
+      }
+    });
+  });
+
+ 
+  </script>
+</body>
+</html>
