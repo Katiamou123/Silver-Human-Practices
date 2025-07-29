@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Silver Human Practices — Modern, Interactive (Green theme)</title>
-  <style>
+<style>
     :root {
       /* Primary green palette */
       --green-50: #f0fdf4;
@@ -64,9 +64,8 @@
       color: var(--fg);
       background: var(--bg);
       line-height: 1.6;
-        overflow-y: scroll;
-
-    }
+      overflow-y: scroll;
+}
 
     /* --- Top Nav --- */
     header.site-header {
@@ -358,6 +357,13 @@
 
 
 
+
+
+
+
+
+
+
     nav {
       position: sticky;
       top: 0;
@@ -430,64 +436,58 @@
       color: white;
     }
 
-   /* Responsive */
-@media (max-width: 768px) {
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+      }
 
-  nav {
-    flex-wrap: wrap;
-  }
+      #hamburger {
+        display: block;
+      }
 
-  #hamburger {
-    display: block;
-  }
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        display: none; /* αρχικά κρυφό */
+        background-color: #006400;
+        margin-top: 0.5rem;
+      }
 
-  /* Light theme: black hamburger icon */
-  [data-theme="light"] #hamburger {
-    color: black;
-    fill: black;   /* If using SVG or icon fonts */
-    stroke: black; /* If SVG uses stroke lines */
-  }
+      nav ul.show {
+        display: flex;
+      }
 
-  nav ul {
-    flex-direction: column;
-    width: 100%;
-    display: none; /* αρχικά κρυφό */
-    background-color: #006400;
-    margin-top: 0.5rem;
-  }
+      nav ul li {
+        width: 100%;
+      }
 
-  nav ul.show {
-    display: flex;
-  }
-
-  nav ul li {
-    width: 100%;
-  }
-
-  nav ul li.open > .dropdown {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Dropdown ως collapsible σε κινητά */
-  .dropdown {
-    position: static;
-    box-shadow: none;
-    border-radius: 0;
-    display: none;
-    padding-left: 1rem;
-    background-color: #2E8B57;
-  }
-
-  nav ul li.open > .dropdown {
-    display: flex;
-    flex-direction: column;
-  }
-
-  nav a {
-    padding: 0.7rem 1rem;
-  }
+    nav ul li.open > .dropdown {
+  display: flex;
+  flex-direction: column;
 }
+
+
+      /* Dropdown ως collapsible σε κινητά */
+      .dropdown {
+        position: static;
+        box-shadow: none;
+        border-radius: 0;
+        display: none;
+        padding-left: 1rem;
+        background-color: #2E8B57;
+      }
+
+      nav ul li.open > .dropdown {
+        display: flex;
+        flex-direction: column;
+      }
+
+      nav a {
+        padding: 0.7rem 1rem;
+      }
+    }
+
 
   </style>
 </head>
@@ -497,7 +497,7 @@
       <div class="brand" aria-label="Silver Human Practices">
         <!-- Simple Leaf Icon -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V2S12 2 6 8c0 6 6 14 6 14z"/><path d="M12 22s-6-8-6-14"/></svg>
-        <span>CHITINATOR et al</span>
+        <span>CHITINATOR et al.</span>
       </div>
        <nav>
    
@@ -541,7 +541,7 @@
       <li>
         <a href="#human">Human</a>
         <div class="dropdown">
-          <a href="under-construction.html">Overview</a>
+          <a href="index.html">Overview</a>
           <a href="silver-human-practices.html">Silver Human Practices</a>
           <a href="under-construction.html">Integrated Human Practices</a>
         </div>
@@ -558,7 +558,7 @@
     <div class="inner">
       <span class="tagline">Modern, innovative & green ✳︎</span>
       <h1>Under Construction...</h1>
-      <p>Stay tuned to watch our Wiki's progress live!</p>
+      <p>Stay tuned to watch our Wiki's progress live! Go back to Human > Silver Human Practices.</p>
       <div class="muted" style="margin-top: .75rem; font-size:.9rem;"></div>
     </div>
   </section>
