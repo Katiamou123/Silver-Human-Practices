@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Silver Human Practices — Modern, Interactive (Green theme)</title>
+  <title>Silver Human Practices</title>
   <style>
     :root {
       /* Primary green palette */
@@ -64,7 +64,8 @@
       color: var(--fg);
       background: var(--bg);
       line-height: 1.6;
-    }
+      overflow-y: scroll;
+}
 
     /* --- Top Nav --- */
     header.site-header {
@@ -501,47 +502,47 @@
    
     <div id="hamburger">&#9776;</div>
     <ul>
-      <li><a href="#home" class="active">Home</a></li>
+      <li><a>Home</a></li>
       <li>
-        <a href="#team">Team</a>
+        <a>Team</a>
         <div class="dropdown">
-          <a href="#members">Members</a>
-          <a href="#helpers">Helpers</a>
-          <a href="#attribution">Attribution</a>
+          <a href="under-construction.html">Members</a>
+          <a href="under-construction.html">Helpers</a>
+          <a href="under-construction.html">Attribution</a>
         </div>
       </li>
       <li>
-        <a href="#project">Project</a>
+        <a>Project</a>
         <div class="dropdown">
-          <a href="#description">Description</a>
-          <a href="#engineering">Engineering</a>
-          <a href="#implementation">Implementation</a>
-          <a href="#contribution">Contribution</a>
-          <a href="#safety">Safety</a>
+          <a href="under-construction.html">Description</a>
+          <a href="under-construction.html">Engineering</a>
+          <a href="under-construction.html">Implementation</a>
+          <a href="under-construction.html">Contribution</a>
+          <a href="under-construction.html">Safety</a>
         </div>
       </li>
       <li>
-        <a href="#wetlab">Wet Lab</a>
+        <a>Wet Lab</a>
         <div class="dropdown">
-          <a href="#design">Design</a>
-          <a href="#experiment">Experiment</a>
-          <a href="#results">Results</a>
-          <a href="#labbook">Lab Book</a>
-          <a href="#composite">New Composite Part</a>
+          <a href="under-construction.html">Design</a>
+          <a href="under-construction.html">Experiment</a>
+          <a href="under-construction.html">Results</a>
+          <a href="under-construction.html">Lab Book</a>
+          <a href="under-construction.html">New Composite Part</a>
         </div>
       </li>
       <li>
-        <a href="#drylab">Dry Lab</a>
+        <a >Dry Lab</a>
         <div class="dropdown">
-          <a href="#model">Model</a>
+          <a href="under-construction.html">Model</a>
         </div>
       </li>
       <li>
-        <a href="#human">Human</a>
+        <a class="active">Human</a>
         <div class="dropdown">
-          <a href="#overview">Overview</a>
-          <a href="tryhyman.html">Silver Human Practices</a>
-          <a href="#integrated">Integrated Human Practices</a>
+          <a href="under-construction.html">Overview</a>
+          <a href="silver-human-practices.html">Silver Human Practices</a>
+          <a href="under-construction.html">Integrated Human Practices</a>
         </div>
       </li>
     </ul>
@@ -970,7 +971,8 @@ These collaborations reflect our belief that scientific innovation thrives at th
 
   <button id="backToTop" aria-label="Back to top">↑</button>
 
-  <script>
+ <script>
+  document.addEventListener('DOMContentLoaded', function () {
     // --- Theme toggle (light/dark)
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle.querySelector('.icon');
@@ -989,16 +991,14 @@ These collaborations reflect our belief that scientific innovation thrives at th
         localStorage.setItem('theme', 'light');
       }
     }
-    // Persisted theme
+
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) setTheme(savedTheme);
 
     themeToggle.addEventListener('click', () => {
-      const current = root.getAttribute('data-theme');
+      const current = root.getAttribute('data-theme') || 'light';
       setTheme(current === 'light' ? 'dark' : 'light');
     });
-
-   
 
     // --- Scrollspy for top nav & side TOC
     const sections = document.querySelectorAll('main section.section');
@@ -1006,10 +1006,9 @@ These collaborations reflect our belief that scientific innovation thrives at th
     const tocLinks = document.querySelectorAll('aside.toc a');
     const heroNavLink = document.querySelector('.top-nav a[href="#overview"]');
 
-    const activateLink = (id) => {
+    function activateLink(id) {
       topNavLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
       tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
-      // Keep Overview active if we're above first section
       if (!id && heroNavLink) {
         topNavLinks.forEach(a => a.classList.remove('active'));
         heroNavLink.classList.add('active');
@@ -1019,15 +1018,13 @@ These collaborations reflect our belief that scientific innovation thrives at th
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const id = entry.target.getAttribute('id');
-        if (entry.isIntersecting) {
-          activateLink(id);
-        }
+        if (entry.isIntersecting) activateLink(id);
       });
     }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
 
     sections.forEach(section => obs.observe(section));
 
-    // Smooth scroll is handled by CSS, but prevent losing focus highlight
+    // --- Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', (e) => {
         const targetId = link.getAttribute('href').substring(1);
@@ -1047,17 +1044,10 @@ These collaborations reflect our belief that scientific innovation thrives at th
         const expanded = header.getAttribute('aria-expanded') === 'true';
         const panel = document.getElementById(header.getAttribute('aria-controls'));
         header.setAttribute('aria-expanded', String(!expanded));
-        if (!expanded) {
-          // open
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-        } else {
-          // close
-          panel.style.maxHeight = 0;
-        }
+        panel.style.maxHeight = !expanded ? panel.scrollHeight + 'px' : 0;
       });
     });
 
-    // Recalculate maxHeight on resize (for open panels)
     window.addEventListener('resize', () => {
       document.querySelectorAll('.accordion-header[aria-expanded="true"]').forEach(header => {
         const panel = document.getElementById(header.getAttribute('aria-controls'));
@@ -1077,99 +1067,50 @@ These collaborations reflect our belief that scientific innovation thrives at th
 
     document.querySelectorAll('section.section').forEach(el => revealObs.observe(el));
 
- 
-
-
-
-
-
-
-  // Hamburger toggle
+    // --- Hamburger & mobile dropdown
     const hamburger = document.getElementById('hamburger');
-    const navUl = document.querySelector('nav ul');
+    const navMenu = document.querySelector('nav ul');
+    const navItems = document.querySelectorAll('nav > ul > li');
 
     hamburger.addEventListener('click', () => {
-      navUl.classList.toggle('show');
+      navMenu.classList.toggle('show');
     });
-
-    // Dropdown toggle σε κινητά (κλικ για να ανοίξει το dropdown)
-    const navItems = document.querySelectorAll('nav ul > li');
 
     navItems.forEach(item => {
-      item.addEventListener('click', (e) => {
-        if(window.innerWidth <= 768) {
-          // Αποτρέπουμε το default scroll ή ακολουθηση href αν υπάρχει dropdown
-          const dropdown = item.querySelector('.dropdown');
-          if (dropdown) {
-            e.preventDefault();
-            item.classList.toggle('open');
-          }
-        }
-      });
-    });
+      const link = item.querySelector('a');
+      const dropdown = item.querySelector('.dropdown');
 
-    // Προαιρετικά: Να κλείνει το dropdown αν κάνεις κλικ αλλού (προαιρετικό)
-    document.addEventListener('click', (e) => {
-      if(window.innerWidth <= 768) {
-        const isClickInsideNav = e.target.closest('nav');
-        if (!isClickInsideNav) {
-          navItems.forEach(item => item.classList.remove('open'));
-          navUl.classList.remove('show');
-        }
-      }
-    });
-
-
-  document.addEventListener('DOMContentLoaded', function () {
-    const hamburger = document.getElementById('hamburger');
-    const menu = document.querySelector('nav ul');
-
-    hamburger.addEventListener('click', () => {
-      menu.classList.toggle('show');
-    });
-
-    const listItems = document.querySelectorAll('nav ul li');
-    listItems.forEach(item => {
-      item.addEventListener('click', (e) => {
-        // Αν έχει dropdown
-        if (item.querySelector('.dropdown')) {
+      link.addEventListener('click', (e) => {
+        if (dropdown && window.innerWidth <= 768) {
           e.preventDefault();
-          item.classList.toggle('open');
+          const isOpen = item.classList.contains('open');
+          navItems.forEach(i => i.classList.remove('open'));
+          if (!isOpen) item.classList.add('open');
+        }
+      });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        const insideNav = e.target.closest('nav');
+        if (!insideNav) {
+          navItems.forEach(item => item.classList.remove('open'));
+          navMenu.classList.remove('show');
+        }
+      }
+    });
+
+    // Close menu and dropdown when a link inside a dropdown is clicked
+    document.querySelectorAll('.dropdown a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          navItems.forEach(item => item.classList.remove('open'));
+          navMenu.classList.remove('show');
         }
       });
     });
   });
-
-
-// Hamburger toggle
-  document.getElementById("hamburger").addEventListener("click", function () {
-    document.querySelector("nav ul").classList.toggle("show");
-  });
-
-  // Dropdown toggle on mobile
-  const navLinks = document.querySelectorAll("nav > ul > li > a");
-
-  navLinks.forEach(link => {
-    link.addEventListener("click", function (e) {
-      const parentLi = this.parentElement;
-      const dropdown = parentLi.querySelector(".dropdown");
-
-      // Αν υπάρχει dropdown και είμαστε σε κινητό
-      if (dropdown && window.innerWidth <= 768) {
-        e.preventDefault(); // αποτρέπουμε το default scroll σε anchor
-
-        // Κλείνουμε τα υπόλοιπα dropdown
-        document.querySelectorAll("nav ul li.open").forEach(li => {
-          if (li !== parentLi) li.classList.remove("open");
-        });
-
-        // Εναλλαγή open class στο επιλεγμένο
-        parentLi.classList.toggle("open");
-      }
-    });
-  });
-
- 
-  </script>
+</script>
 </body>
 </html>
