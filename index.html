@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Silver Human Practices</title>
   <style>
-    :root {
+  :root {
       /* Primary green palette */
       --green-50: #f0fdf4;
       --green-100: #dcfce7;
@@ -432,8 +432,7 @@
       font-size: 1.8rem;
       cursor: pointer;
       user-select: none;
-      color: rgb(0, 0, 0);
-    }
+   color: var(--fg); /* responds to theme */}
 
  /* Responsive */
     @media (max-width: 768px) {
@@ -449,9 +448,16 @@
         flex-direction: column;
         width: 100%;
         display: none; /* αρχικά κρυφό */
-        background-color: rgb(255, 255, 255);
+        
+        backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
         margin-top: 0.5rem;
       }
+
+      
+  [data-theme="dark"] nav ul {
+    background: rgba(17, 24, 39, 0.6);
+  }
 
       nav ul.show {
         display: flex;
@@ -474,7 +480,7 @@
         border-radius: 0;
         display: none;
         padding-left: 1rem;
-        background-color: #ffffff;
+        background-color: var(--card-bg); /* ✅ dynamic per theme */
       }
 
       nav ul li.open > .dropdown {
@@ -540,7 +546,7 @@
         <a class="active">Human</a>
         <div class="dropdown">
           <a href="under-construction.html">Overview</a>
-          <a href="silver-human-practices.html">Silver Human Practices</a>
+          <a href="index.html">Silver Human Practices</a>
           <a href="under-construction.html">Integrated Human Practices</a>
         </div>
       </li>
